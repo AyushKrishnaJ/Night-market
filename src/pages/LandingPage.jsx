@@ -9,8 +9,12 @@ function LandingPage() {
     // For MVP, we'll simulate login
     const email = prompt('Enter your college email:');
     if (email && email.includes('@')) {
-      // Check if it's a college domain (simplified check)
-      if (email.endsWith('.edu') || email.includes('college') || email.includes('university')) {
+      // Check if it's a college domain - must end with .edu or specific allowed domains
+      const emailLower = email.toLowerCase();
+      const allowedDomains = ['.edu', '.ac.in', '.edu.in']; // Common college domains
+      const isValidCollegeEmail = allowedDomains.some(domain => emailLower.endsWith(domain));
+      
+      if (isValidCollegeEmail) {
         // Simulate role selection for MVP
         const role = prompt('Enter role (buyer/seller/admin):');
         if (role === 'buyer') {

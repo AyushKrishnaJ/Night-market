@@ -20,9 +20,19 @@ function SellerDetail() {
   };
 
   const handleWhatsAppMessage = () => {
+    // Validate phone number format before opening WhatsApp
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/; // E.164 format
+    const cleanPhone = seller.phone.replace(/\s/g, '');
+    
+    if (!phoneRegex.test(cleanPhone)) {
+      alert('Invalid phone number format');
+      return;
+    }
+    
     // In a real app, this would open WhatsApp with pre-filled message
     const message = encodeURIComponent(`Hi ${seller.name}, I'd like to order from your shop!`);
-    window.open(`https://wa.me/${seller.phone.replace(/\s/g, '')}?text=${message}`, '_blank');
+    const whatsappUrl = `https://wa.me/${cleanPhone}?text=${message}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleReport = () => {
